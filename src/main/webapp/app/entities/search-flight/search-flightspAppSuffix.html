@@ -1,0 +1,70 @@
+<div>
+    <h2>Search Flights</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="search-flightpAppSuffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Search Flight
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Flight Number</span></th>
+                    <th><span>Origin</span></th>
+                    <th><span>Destination</span></th>
+                    <th><span>Flight Date</span></th>
+                    <th><span>S Flight Fare</span></th>
+                    <th><span>S Flight Inv</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="searchFlight in vm.searchFlights track by searchFlight.id">
+                    <td><a ui-sref="search-flightpAppSuffix-detail({id:searchFlight.id})">{{searchFlight.id}}</a></td>
+                    <td>{{searchFlight.flightNumber}}</td>
+                    <td>{{searchFlight.origin}}</td>
+                    <td>{{searchFlight.destination}}</td>
+                    <td>{{searchFlight.flightDate}}</td>
+                    <td>
+                        <a ui-sref="search-farespAppSuffix-detail({id:searchFlight.sFlightFareId})">{{searchFlight.sFlightFareId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="search-inventorypAppSuffix-detail({id:searchFlight.sFlightInvId})">{{searchFlight.sFlightInvId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="search-flightpAppSuffix-detail({id:searchFlight.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="search-flightpAppSuffix.edit({id:searchFlight.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="search-flightpAppSuffix.delete({id:searchFlight.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

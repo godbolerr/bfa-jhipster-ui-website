@@ -1,0 +1,72 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myCheckInRecordLabel">Create or edit a Check In Record</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.checkInRecord.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.checkInRecord.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_lastName">Last Name</label>
+            <input type="text" class="form-control" name="lastName" id="field_lastName"
+                    ng-model="vm.checkInRecord.lastName"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_firstName">First Name</label>
+            <input type="text" class="form-control" name="firstName" id="field_firstName"
+                    ng-model="vm.checkInRecord.firstName"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_seatNumber">Seat Number</label>
+            <input type="text" class="form-control" name="seatNumber" id="field_seatNumber"
+                    ng-model="vm.checkInRecord.seatNumber"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_checkInTime">Check In Time</label>
+                <div class="input-group">
+                    <input id="field_checkInTime" type="text" class="form-control" name="checkInTime" uib-datepicker-popup="{{dateformat}}" ng-model="vm.checkInRecord.checkInTime" is-open="vm.datePickerOpenStatus.checkInTime"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('checkInTime')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_flightNumber">Flight Number</label>
+            <input type="text" class="form-control" name="flightNumber" id="field_flightNumber"
+                    ng-model="vm.checkInRecord.flightNumber"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_flightDate">Flight Date</label>
+            <input type="text" class="form-control" name="flightDate" id="field_flightDate"
+                    ng-model="vm.checkInRecord.flightDate"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_bookingId">Booking Id</label>
+            <input type="number" class="form-control" name="bookingId" id="field_bookingId"
+                    ng-model="vm.checkInRecord.bookingId"
+                     />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

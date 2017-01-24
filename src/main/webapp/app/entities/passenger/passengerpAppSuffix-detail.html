@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span>Passenger</span> {{vm.passenger.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{vm.passenger.firstName}}</span>
+        </dd>
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{vm.passenger.lastName}}</span>
+        </dd>
+        <dt><span>Gender</span></dt>
+        <dd>
+            <span>{{vm.passenger.gender}}</span>
+        </dd>
+        <dt><span>Booking Record</span></dt>
+        <dd>
+            <a ui-sref="booking-recordpAppSuffix-detail({id:vm.passenger.bookingRecordId})">{{vm.passenger.bookingRecordId}}</a>
+        </dd>
+        <dt><span>Psr Book</span></dt>
+        <dd>
+            <a ui-sref="booking-recordpAppSuffix-detail({id:vm.passenger.psrBookId})">{{vm.passenger.psrBookId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="passengerpAppSuffix-detail.edit({id:vm.passenger.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

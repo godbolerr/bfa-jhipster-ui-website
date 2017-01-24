@@ -1,0 +1,51 @@
+<div ng-cloak>
+
+    <div class="row" ng-hide="vm.checkinResponse">
+        <div class="col-md-8" >
+
+			<form name="bookingSearchForm" role="form" novalidate
+				ng-submit="vm.searchBooking()" show-validation>
+				<div class="form-group">
+					<input type="text" class="form-control" size="5" id="bookingId"
+						name="bookingId" placeholder="Enter Booking Id"
+						ng-model="vm.bookingInfo.bookingId" ng-minlength=1 ng-maxlength=10
+						ng-pattern="/^[_'.A-Za-z0-9]*$/" required>
+					<div
+						ng-show="bookingSearchForm.bookingId.$dirty && bookingSearchForm.bookingId.$invalid">
+						<p class="help-block"
+							ng-show="bookingSearchForm.bookingId.$error.required">Booking Id is required.</p>
+					</div>
+				</div>
+				<button type="submit" ng-disabled="bookingSearchForm.$invalid"
+					class="btn btn-primary">Search Booking</button>
+			</form>
+
+        </div>
+    </div>
+    
+      <div class="row" ng-show="vm.bookingResponse">
+        <div class="col-md-8">
+
+			<p>
+			Booking Detail :  {{vm.bookingResponse.flightNumber}} for  {{vm.bookingResponse.pdto.firstName}} {{vm.bookingResponse.pdto.lastName}}
+			
+			<a href="" ng-click="vm.checkIn()">Checkin</a>
+			
+			</p>
+
+        </div>
+    </div>  
+    
+     <div class="row" ng-show="vm.checkinResponse">
+        <div class="col-md-8">
+
+			<p>
+			Your Seat Details :  {{vm.checkinResponse.seatNumber}}
+			
+			
+			</p>
+
+        </div>
+    </div>      
+    
+</div>

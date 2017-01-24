@@ -1,0 +1,43 @@
+
+<div>
+    <h2><span>Search Flight</span> {{vm.searchFlight.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Flight Number</span></dt>
+        <dd>
+            <span>{{vm.searchFlight.flightNumber}}</span>
+        </dd>
+        <dt><span>Origin</span></dt>
+        <dd>
+            <span>{{vm.searchFlight.origin}}</span>
+        </dd>
+        <dt><span>Destination</span></dt>
+        <dd>
+            <span>{{vm.searchFlight.destination}}</span>
+        </dd>
+        <dt><span>Flight Date</span></dt>
+        <dd>
+            <span>{{vm.searchFlight.flightDate}}</span>
+        </dd>
+        <dt><span>S Flight Fare</span></dt>
+        <dd>
+            <a ui-sref="search-farespAppSuffix-detail({id:vm.searchFlight.sFlightFareId})">{{vm.searchFlight.sFlightFareId}}</a>
+        </dd>
+        <dt><span>S Flight Inv</span></dt>
+        <dd>
+            <a ui-sref="search-inventorypAppSuffix-detail({id:vm.searchFlight.sFlightInvId})">{{vm.searchFlight.sFlightInvId}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="search-flightpAppSuffix-detail.edit({id:vm.searchFlight.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

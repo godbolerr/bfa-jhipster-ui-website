@@ -1,0 +1,78 @@
+<div ng-cloak>
+
+	<div class="row">
+
+		<div class="col-md-8 col-md-offset-2">
+			<form name="searchFlightForm" role="form" novalidate
+				ng-submit="vm.searchFlight()" show-validation>
+				<div class="form-group">
+					<input type="text" class="form-control" size="5" id="origin"
+						name="origin" placeholder="From Airport"
+						ng-model="vm.searchF.origin" ng-minlength=3 ng-maxlength=3
+						ng-pattern="/^[_'.A-Za-z]*$/" required>
+					<div
+						ng-show="searchFlightForm.origin.$dirty && searchFlightForm.origin.$invalid">
+						<p class="help-block"
+							ng-show="searchFlightForm.origin.$error.required">3 Letter
+							From Airport code is required.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="text" class="form-control" size="10" id="destination"
+						name="destination" placeholder="To Airport"
+						ng-model="vm.searchF.destination" ng-minlength=3 ng-maxlength=3
+						ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+					<div
+						ng-show="searchFlightForm.destination.$dirty && searchFlightForm.destination.$invalid">
+						<p class="help-block"
+							ng-show="searchFlightForm.destination.$error.required">3
+							Letter To Airport code is required.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="text" class="form-control" id="flightDate"
+						name="flightDate" placeholder="Date of Travel"
+						ng-model="vm.searchF.flightDate" ng-minlength=1 ng-maxlength=10
+						required>
+					<div
+						ng-show="searchFlightForm.flightDate.$dirty && searchFlightForm.flightDate.$invalid">
+						<p class="help-block"
+							ng-show="searchFlightForm.flightDate.$error.required">Travel
+							Date is required.[YYYY-MM-DD]</p>
+					</div>
+				</div>
+				<button type="submit" ng-disabled="searchFlightForm.$invalid"
+					class="btn btn-primary">Search Flight</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="vm.hasFlights">
+   <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                <th jh-sort-by="flightNumber"><span>Flight #</span><span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="available"><span>Available Seats</span><span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="flightDate"><span>Flight Date</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="flightFare"><span>Fare(USD)</span> <span class="glyphicon glyphicon-sort"></span></th>
+                <th jh-sort-by="flightFare"><span>Book</span> <span class="glyphicon glyphicon-sort"></span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="flightInfo in vm.flights">
+                <td>{{flightInfo.flightNumber}}</td>
+                <td>{{flightInfo.inventory}}</td>
+                <td>{{flightInfo.flightDate}}</td>
+                <td>{{flightInfo.fare}}</td>
+                <td><a href="" ng-click="vm.bookFlight(flightInfo.origin,flightInfo.destination,flightInfo.flightNumber,flightInfo.flightDate,flightInfo.fare)">Book</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+

@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span>Fares</span> {{vm.fares.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Flight Number</span></dt>
+        <dd>
+            <span>{{vm.fares.flightNumber}}</span>
+        </dd>
+        <dt><span>Flight Date</span></dt>
+        <dd>
+            <span>{{vm.fares.flightDate}}</span>
+        </dd>
+        <dt><span>Fare</span></dt>
+        <dd>
+            <span>{{vm.fares.fare}}</span>
+        </dd>
+        <dt><span>Currency</span></dt>
+        <dd>
+            <span>{{vm.fares.currency}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="farespAppSuffix-detail.edit({id:vm.fares.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

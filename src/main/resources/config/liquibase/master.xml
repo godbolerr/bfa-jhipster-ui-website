@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045446_added_entity_BookingRecord.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045447_added_entity_Passenger.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045448_added_entity_Inventory.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045449_added_entity_CheckInRecord.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045450_added_entity_Fares.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045451_added_entity_SearchFlight.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045452_added_entity_SearchInventory.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045453_added_entity_SearchFares.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170119045447_added_entity_constraints_Passenger.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170119045451_added_entity_constraints_SearchFlight.xml" relativeToChangelogFile="false"/>
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

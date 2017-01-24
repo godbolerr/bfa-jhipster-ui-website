@@ -1,0 +1,45 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "sFlightFare",
+            "otherEntityName": "searchFares",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "searchFlight"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "sFlightInv",
+            "otherEntityName": "searchInventory",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "searchFlight"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "flightNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "origin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "destination",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "flightDate",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170119045451",
+    "entityTableName": "search_flight",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "pAppSuffix"
+}

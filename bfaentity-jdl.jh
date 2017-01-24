@@ -1,0 +1,75 @@
+
+
+entity BookingRecord {
+    flightNumber String,
+    origin String,
+    destination String,
+    flightDate String,
+    bookingDate LocalDate,
+    fare String,
+    status String
+}
+
+entity Passenger {
+    firstName String,
+    lastName String,
+    gender String
+}
+
+
+entity Inventory {
+    flightNumber String,
+    flightDate String,
+    available Integer
+}
+
+entity CheckInRecord {
+	lastName String,
+    firstName String,
+    seatNumber String,
+    checkInTime LocalDate,
+    flightNumber String,
+    flightDate String,
+    bookingId Integer
+}
+
+entity Fares {
+	flightNumber String,
+    flightDate String
+    fare String,
+	currency String
+}
+
+
+entity SearchFlight {
+
+flightNumber String,
+origin String,
+destination String,
+flightDate String
+
+}
+
+entity SearchInventory {
+	count Integer
+}
+
+entity SearchFares {
+    fare String,
+	currency String
+}
+relationship OneToOne { SearchFlight{sFlightFare} to SearchFares }
+relationship OneToOne { SearchFlight{sFlightInv} to SearchInventory }
+
+relationship OneToMany { BookingRecord{bookPsr} to Passenger }
+relationship ManyToOne { Passenger{psrBook} to BookingRecord }
+
+
+paginate BookingRecord with pagination
+
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+// Set an angular suffix
+angularSuffix * with pAppSuffix

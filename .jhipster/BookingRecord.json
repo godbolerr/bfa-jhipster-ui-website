@@ -1,0 +1,47 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "bookPsr",
+            "otherEntityName": "passenger",
+            "otherEntityRelationshipName": "bookingRecord"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "flightNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "origin",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "destination",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "flightDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "bookingDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "fare",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170119045446",
+    "entityTableName": "booking_record",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "angularJSSuffix": "pAppSuffix"
+}

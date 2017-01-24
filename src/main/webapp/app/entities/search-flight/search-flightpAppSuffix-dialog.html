@@ -1,0 +1,62 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="mySearchFlightLabel">Create or edit a Search Flight</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.searchFlight.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.searchFlight.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_flightNumber">Flight Number</label>
+            <input type="text" class="form-control" name="flightNumber" id="field_flightNumber"
+                    ng-model="vm.searchFlight.flightNumber"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_origin">Origin</label>
+            <input type="text" class="form-control" name="origin" id="field_origin"
+                    ng-model="vm.searchFlight.origin"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_destination">Destination</label>
+            <input type="text" class="form-control" name="destination" id="field_destination"
+                    ng-model="vm.searchFlight.destination"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_flightDate">Flight Date</label>
+            <input type="text" class="form-control" name="flightDate" id="field_flightDate"
+                    ng-model="vm.searchFlight.flightDate"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label for="field_sFlightFare">S Flight Fare</label>
+            <select class="form-control" id="field_sFlightFare" name="sFlightFare" ng-model="vm.searchFlight.sFlightFareId" ng-options="searchFares.id as searchFares.id for searchFares in vm.sflightfares | orderBy:'id'">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="field_sFlightInv">S Flight Inv</label>
+            <select class="form-control" id="field_sFlightInv" name="sFlightInv" ng-model="vm.searchFlight.sFlightInvId" ng-options="searchInventory.id as searchInventory.id for searchInventory in vm.sflightinvs | orderBy:'id'">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

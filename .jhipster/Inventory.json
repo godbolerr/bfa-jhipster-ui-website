@@ -1,0 +1,24 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "flightNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "flightDate",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "available",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170119045448",
+    "entityTableName": "inventory",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "angularJSSuffix": "pAppSuffix"
+}

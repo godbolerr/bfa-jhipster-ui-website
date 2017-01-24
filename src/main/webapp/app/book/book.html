@@ -1,0 +1,69 @@
+<div ng-cloak>
+
+    <div class="row">
+        <div class="col-md-8">
+            <p class="lead">Booking</p>
+            Booking for flight <bold>{{vm.bookingInfo.flightNumber}}</bold> starting from {{vm.bookingInfo.origin}} to {{vm.bookingInfo.destination}} on {{vm.bookingInfo.flightDate}} with fare {{vm.bookingInfo.fare}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+
+			<form name="bookingForm" role="form" novalidate
+				ng-submit="vm.bookFlight()" show-validation>
+				<div class="form-group">
+					<input type="text" class="form-control" size="5" id="firstName"
+						name="firstName" placeholder="First Name"
+						ng-model="vm.bookingInfo.firstName" ng-minlength=3 ng-maxlength=30
+						ng-pattern="/^[_'.A-Za-z]*$/" required>
+					<div
+						ng-show="bookingForm.firstName.$dirty && bookingForm.firstName.$invalid">
+						<p class="help-block"
+							ng-show="bookingForm.firstName.$error.required">First Name is required.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<input type="text" class="form-control" size="10" id="lastName"
+						name="lastName" placeholder="Last Name"
+						ng-model="vm.bookingInfo.lastName" ng-minlength=3 ng-maxlength=30
+						ng-pattern="/^[_'.@A-Za-z0-9-]*$/" required>
+					<div
+						ng-show="bookingForm.lastName.$dirty && bookingForm.lastName.$invalid">
+						<p class="help-block"
+							ng-show="bookingForm.lastName.$error.required">
+							Last Name is required.</p>
+					</div>
+				</div>
+
+				<div class="form-group">
+				<select name="gender" id="gender" class="form-control" ng-model="vm.bookingInfo.gender" required>
+				      <option value="">---Please select Gender---</option> <!-- not selected / blank option -->
+    				  <option value="Male">Male</option> 
+     				   <option value="Female">Female</option>
+				</select>
+					
+				</div>
+				<button type="submit" ng-disabled="bookingForm.$invalid"
+					class="btn btn-primary">Book {{vm.bookingInfo.flightNumber}} </button>
+			</form>
+
+
+
+
+        </div>
+        
+        
+           <div class="col-md-8" ng-show="vm.bookingResponse">
+            <p class="lead">Booking Confirmation Id {{vm.bookingResponse.id}}</p>
+             <bold>{{vm.bookingInfo.flightNumber}}</bold> starting from {{vm.bookingInfo.firstName}} to {{vm.bookingInfo.lastName}} on {{vm.bookingInfo.gender}} with fare {{vm.bookingInfo.fare}}
+        </div>
+        
+        
+        
+    </div>
+
+
+
+</div>

@@ -1,0 +1,68 @@
+<div>
+    <h2>Check In Records</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="check-in-recordpAppSuffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Check In Record
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Last Name</span></th>
+                    <th><span>First Name</span></th>
+                    <th><span>Seat Number</span></th>
+                    <th><span>Check In Time</span></th>
+                    <th><span>Flight Number</span></th>
+                    <th><span>Flight Date</span></th>
+                    <th><span>Booking Id</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="checkInRecord in vm.checkInRecords track by checkInRecord.id">
+                    <td><a ui-sref="check-in-recordpAppSuffix-detail({id:checkInRecord.id})">{{checkInRecord.id}}</a></td>
+                    <td>{{checkInRecord.lastName}}</td>
+                    <td>{{checkInRecord.firstName}}</td>
+                    <td>{{checkInRecord.seatNumber}}</td>
+                        <td>{{checkInRecord.checkInTime | date:'mediumDate'}}</td>
+                    <td>{{checkInRecord.flightNumber}}</td>
+                    <td>{{checkInRecord.flightDate}}</td>
+                    <td>{{checkInRecord.bookingId}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="check-in-recordpAppSuffix-detail({id:checkInRecord.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="check-in-recordpAppSuffix.edit({id:checkInRecord.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="check-in-recordpAppSuffix.delete({id:checkInRecord.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span>Check In Record</span> {{vm.checkInRecord.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span>Last Name</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.lastName}}</span>
+        </dd>
+        <dt><span>First Name</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.firstName}}</span>
+        </dd>
+        <dt><span>Seat Number</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.seatNumber}}</span>
+        </dd>
+        <dt><span>Check In Time</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.checkInTime | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Flight Number</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.flightNumber}}</span>
+        </dd>
+        <dt><span>Flight Date</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.flightDate}}</span>
+        </dd>
+        <dt><span>Booking Id</span></dt>
+        <dd>
+            <span>{{vm.checkInRecord.bookingId}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button" ui-sref="check-in-recordpAppSuffix-detail.edit({id:vm.checkInRecord.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm"> Edit</span>
+    </button>
+</div>

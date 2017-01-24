@@ -1,0 +1,68 @@
+<div>
+    <h2>Passengers</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="passengerpAppSuffix.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span >
+                        Create new Passenger
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>First Name</span></th>
+                    <th><span>Last Name</span></th>
+                    <th><span>Gender</span></th>
+                    <th><span>Booking Record</span></th>
+                    <th><span>Psr Book</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="passenger in vm.passengers track by passenger.id">
+                    <td><a ui-sref="passengerpAppSuffix-detail({id:passenger.id})">{{passenger.id}}</a></td>
+                    <td>{{passenger.firstName}}</td>
+                    <td>{{passenger.lastName}}</td>
+                    <td>{{passenger.gender}}</td>
+                    <td>
+                        <a ui-sref="booking-recordpAppSuffix-detail({id:passenger.bookingRecordId})">{{passenger.bookingRecordId}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="booking-recordpAppSuffix-detail({id:passenger.psrBookId})">{{passenger.psrBookId}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="passengerpAppSuffix-detail({id:passenger.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="passengerpAppSuffix.edit({id:passenger.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="passengerpAppSuffix.delete({id:passenger.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

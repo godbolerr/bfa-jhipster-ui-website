@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity SearchFlight.
+    -->
+    <changeSet id="20170119045451-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="s_flight_fare_id"
+                                 baseTableName="search_flight"
+                                 constraintName="fk_search_flight_s_flight_fare_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="search_fares"/>
+
+        <addForeignKeyConstraint baseColumnNames="s_flight_inv_id"
+                                 baseTableName="search_flight"
+                                 constraintName="fk_search_flight_s_flight_inv_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="search_inventory"/>
+
+    </changeSet>
+</databaseChangeLog>
