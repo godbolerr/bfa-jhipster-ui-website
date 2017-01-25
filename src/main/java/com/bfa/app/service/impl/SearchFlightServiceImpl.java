@@ -182,7 +182,7 @@ public class SearchFlightServiceImpl implements SearchFlightService {
 					new ParameterizedTypeReference<InventoryDTO>() {
 					});
 			 
-			System.out.println("Inventory created " + inventoryRecord.getBody());
+			System.out.println("Inventory " + inventoryRecord.getBody());
 				
 			JSONObject fareRequest = new JSONObject();
 			try {
