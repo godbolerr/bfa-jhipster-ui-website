@@ -24,11 +24,16 @@ import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bfa.app.domain.Inventory;
+import com.bfa.app.domain.SearchFares;
 import com.bfa.app.domain.SearchFlight;
+import com.bfa.app.domain.SearchInventory;
 import com.bfa.app.repository.InventoryRepository;
 import com.bfa.app.repository.SearchFlightRepository;
 import com.bfa.app.service.InventoryService;
 import com.bfa.app.service.SearchFlightService;
+import com.bfa.app.service.dto.FaresDTO;
+import com.bfa.app.service.dto.InventoryDTO;
 import com.bfa.app.service.dto.SearchFlightDTO;
 import com.bfa.app.service.mapper.SearchFlightMapper;
 
@@ -119,55 +124,108 @@ public class SearchFlightServiceImpl implements SearchFlightService {
 	@Override
 	public List<SearchFlightDTO> init(List<SearchFlightDTO> flights) {
 
-//		Object obj = restTemplate.getForObject("http://localhost:11000/searchms/api/search-flights", Object.class);
-//
-//		ResponseEntity<List<SearchFlight>> searchResponseList = restTemplate.exchange(
-//				"http://localhost:11000/searchms/api/search-flights", HttpMethod.GET, null,
-//				new ParameterizedTypeReference<List<SearchFlight>>() {
-//				});
-//
-//		List<SearchFlight> restFlights = searchResponseList.getBody();
-//
-//		System.out.println("searchResponseList " + restFlights);
-//
-//		for (Iterator iterator = restFlights.iterator(); iterator.hasNext();) {
-//			SearchFlight sfLocal = (SearchFlight) iterator.next();
-//			System.out.println(sfLocal);
-//
-//		}
+			 Object obj =
+			 restTemplate.getForObject("http:localhost:11000/searchms/api/search-flights",
+			 Object.class);
+			
+			 ResponseEntity<List<SearchFlight>> searchResponseList =
+			 restTemplate.exchange(
+			 "http:localhost:11000/searchms/api/search-flights", HttpMethod.GET,
+			 null,
+			 new ParameterizedTypeReference<List<SearchFlight>>() {
+			 });
+			
+			 List<SearchFlight> restFlights = searchResponseList.getBody();
+			
+			 System.out.println("searchResponseList " + restFlights);
+			
+			 for (Iterator iterator = restFlights.iterator(); iterator.hasNext();)
+			 {
+				 SearchFlight sfLocal = (SearchFlight) iterator.next();
+				 System.out.println(sfLocal);
+			
+			 }
+			
+			 List<SearchFlight> fList = searchFlightRepository.findAll();
+			
+			//  Populate only for the first time.
+			 if (fList != null && fList.size() == 0) {
+			
+			 for (Iterator iterator = flights.iterator(); iterator.hasNext();) {
+			 SearchFlightDTO searchFlightDTO = (SearchFlightDTO) iterator.next();
+			
+			 SearchFlight searchFlight =
+			 searchFlightMapper.searchFlightDTOToSearchFlight(searchFlightDTO);
+			 SearchFares sFares = new SearchFares();
+			 sFares.setFare(searchFlightDTO.getFare() + "");
+			 sFares.setCurrency("USD");
+			 searchFlight.setSFlightFare(sFares);
+			 
+			 // Populate Inventory for the record.
+			 
+			JSONObject inventoryRequest = new JSONObject();
+			try {
+				inventoryRequest.put("available", searchFlightDTO.getInventory());
+				inventoryRequest.put("flightNumber", searchFlightDTO.getFlightNumber());
+				inventoryRequest.put("flightDate", searchFlightDTO.getFlightDate());
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		// List<SearchFlight> fList = searchFlightRepository.findAll();
-		//
-		// // Populate only for the first time.
-		// if (fList != null && fList.size() == 0) {
-		//
-		// for (Iterator iterator = flights.iterator(); iterator.hasNext();) {
-		// SearchFlightDTO searchFlightDTO = (SearchFlightDTO) iterator.next();
-		//
-		// SearchFlight searchFlight =
-		// searchFlightMapper.searchFlightDTOToSearchFlight(searchFlightDTO);
-		// SearchFares sFares = new SearchFares();
-		// sFares.setFare(searchFlightDTO.getFare() + "");
-		// sFares.setCurrency("USD");
-		// searchFlight.setSFlightFare(sFares);
-		//
-		// SearchInventory sI = new SearchInventory();
-		// sI.setCount(Integer.parseInt(searchFlightDTO.getInventory() + ""));
-		// searchFlight.setSFlightInv(sI);
-		//
-		// searchFlight = searchFlightRepository.save(searchFlight);
-		//
-		// searchFlightDTO.setId(searchFlight.getId());
-		//
-		// Inventory inventory = new Inventory();
-		// inventory.setFlightDate(searchFlightDTO.getFlightDate());
-		// inventory.setAvailable(searchFlightDTO.getInventory().intValue());
-		// inventory.setFlightNumber(searchFlightDTO.getFlightNumber());
-		// inventoryRepository.save(inventory);
-		//
-		// }
-		//
-		// }
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> entity = new HttpEntity<String>(inventoryRequest.toString(), headers);
+
+			ResponseEntity<InventoryDTO> inventoryRecord = restTemplate.exchange(
+					"http://10.142.129.23:11000/bookms/api/inventories", HttpMethod.POST, entity,
+					new ParameterizedTypeReference<InventoryDTO>() {
+					});
+			 
+			System.out.println("Inventory created " + inventoryRecord.getBody());
+				
+			JSONObject fareRequest = new JSONObject();
+			try {
+				fareRequest.put("flightNumber", searchFlightDTO.getFlightNumber());
+				fareRequest.put("flightDate", searchFlightDTO.getFlightDate());
+				fareRequest.put("fare", searchFlightDTO.getFare());
+				fareRequest.put("currency", "USD");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			HttpHeaders fheaders = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			HttpEntity<String> fentity = new HttpEntity<String>(fareRequest.toString(), fheaders);
+
+			ResponseEntity<FaresDTO> fareRecord = restTemplate.exchange(
+					"http://10.142.129.23:11000/faresms/api/fares", HttpMethod.POST, fentity,
+					new ParameterizedTypeReference<FaresDTO>() {
+					});
+				
+				
+				
+			System.out.println("Fare created " + fareRecord.getBody());	
+				
+			
+			 SearchInventory sI = new SearchInventory();
+			 sI.setCount(Integer.parseInt(searchFlightDTO.getInventory() + ""));
+			 searchFlight.setSFlightInv(sI);
+			
+			 searchFlight = searchFlightRepository.save(searchFlight);
+			
+			 searchFlightDTO.setId(searchFlight.getId());
+			
+//			 Inventory inventory = new Inventory();
+//			 inventory.setFlightDate(searchFlightDTO.getFlightDate());
+//			 inventory.setAvailable(searchFlightDTO.getInventory().intValue());
+//			 inventory.setFlightNumber(searchFlightDTO.getFlightNumber());
+//			 inventoryRepository.save(inventory);
+			
+			 }
+			
+			 }
 
 		return flights;
 	}
@@ -177,66 +235,68 @@ public class SearchFlightServiceImpl implements SearchFlightService {
 
 		List<SearchFlightDTO> dtoList = new ArrayList<SearchFlightDTO>();
 
-	
 		JSONObject request = new JSONObject();
 		try {
 			request.put("origin", dto.getOrigin());
 			request.put("destination", dto.getDestination());
-			request.put("flightDate", dto.getFlightDate());			
+			request.put("flightDate", dto.getFlightDate());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		HttpEntity<String> entity = new HttpEntity<String>(request.toString(), headers);
-		
 
 		ResponseEntity<List<SearchFlight>> searchResponseList = restTemplate.exchange(
-				"http://localhost:11000/searchms/api/searchFlights", HttpMethod.POST, entity,
+				"http://10.142.129.23:11000/searchms/api/searchFlights", HttpMethod.POST, entity,
 				new ParameterizedTypeReference<List<SearchFlight>>() {
 				});
 
 		List<SearchFlight> restFlights = searchResponseList.getBody();
 
-		for (Iterator iterator = restFlights.iterator(); iterator.hasNext();) {
-			SearchFlight sfLocal = (SearchFlight) iterator.next();
-			log.debug("Search Result " + sfLocal);
-			
-			SearchFlightDTO searchFlightDTO = searchFlightMapper.searchFlightToSearchFlightDTO(sfLocal);
-			
-			dtoList.add(searchFlightDTO);
-			
+		if (restFlights != null) {
+			for (Iterator iterator = restFlights.iterator(); iterator.hasNext();) {
+				SearchFlight sfLocal = (SearchFlight) iterator.next();
+				log.debug("Search Result " + sfLocal);
+
+				SearchFlightDTO searchFlightDTO = searchFlightMapper.searchFlightToSearchFlightDTO(sfLocal);
+
+				dtoList.add(searchFlightDTO);
+
+			}
 
 		}
-		
-//		List<SearchFlight> sfList = searchFlightRepository.findByOriginAndDestinationAndFlightDate(dto.getOrigin(),
-//				dto.getDestination(), dto.getFlightDate());
-//
-//		for (Iterator iterator = sfList.iterator(); iterator.hasNext();) {
-//			SearchFlight searchFlight = (SearchFlight) iterator.next();
-//			SearchFares sf = searchFlight.getSFlightFare();
-//			SearchInventory si = searchFlight.getSFlightInv();
-//			SearchFlightDTO searchFlightDTO = searchFlightMapper.searchFlightToSearchFlightDTO(searchFlight);
-//			if (sf != null) {
-//				searchFlightDTO.setFare(Long.parseLong(sf.getFare()));
-//			}
-//
-//			InventoryDTO invDto = invService.findByFlightNumberAndFlightDate(searchFlightDTO.getFlightNumber(),
-//					searchFlightDTO.getFlightDate());
-//
-//			int availableSeats = invDto.getAvailable();
-//
-//			if (invDto != null) {
-//				searchFlightDTO.setInventory(new Long(invDto.getAvailable()));
-//			}
-//
-//			if (availableSeats != 0) {
-//				dtoList.add(searchFlightDTO);
-//			}
-//		}
+
+		// List<SearchFlight> sfList =
+		// searchFlightRepository.findByOriginAndDestinationAndFlightDate(dto.getOrigin(),
+		// dto.getDestination(), dto.getFlightDate());
+		//
+		// for (Iterator iterator = sfList.iterator(); iterator.hasNext();) {
+		// SearchFlight searchFlight = (SearchFlight) iterator.next();
+		// SearchFares sf = searchFlight.getSFlightFare();
+		// SearchInventory si = searchFlight.getSFlightInv();
+		// SearchFlightDTO searchFlightDTO =
+		// searchFlightMapper.searchFlightToSearchFlightDTO(searchFlight);
+		// if (sf != null) {
+		// searchFlightDTO.setFare(Long.parseLong(sf.getFare()));
+		// }
+		//
+		// InventoryDTO invDto =
+		// invService.findByFlightNumberAndFlightDate(searchFlightDTO.getFlightNumber(),
+		// searchFlightDTO.getFlightDate());
+		//
+		// int availableSeats = invDto.getAvailable();
+		//
+		// if (invDto != null) {
+		// searchFlightDTO.setInventory(new Long(invDto.getAvailable()));
+		// }
+		//
+		// if (availableSeats != 0) {
+		// dtoList.add(searchFlightDTO);
+		// }
+		// }
 
 		return dtoList;
 	}

@@ -83,6 +83,24 @@ public class BfalegacyApp {
         
         flights.add(sfdto);
         
+        SearchFlightDTO sfdto1 = new SearchFlightDTO();
+        
+        sfdto1.setOrigin("NYC");
+        sfdto1.setDestination("SFO");
+        sfdto1.setFare(121L);
+        sfdto1.setFlightDate("2017-01-01");
+        sfdto1.setInventory(100L);
+        sfdto1.setFlightNumber("SF122");
+         
+        
+        flights.add(sfdto1);
+        
+        
+        // Add another flight
+        
+        
+        
+        
 		searchFlightService.init(flights);
         
     }
