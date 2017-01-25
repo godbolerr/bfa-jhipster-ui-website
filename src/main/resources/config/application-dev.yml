@@ -95,7 +95,7 @@ jhipster:
             reportFrequency: 60 # in seconds
     logging:
         logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
-            enabled: false
-            host: localhost
+            enabled: true
+            host: 10.142.129.23
             port: 5000
             queueSize: 512

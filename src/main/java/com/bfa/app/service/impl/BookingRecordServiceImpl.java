@@ -1,5 +1,7 @@
 package com.bfa.app.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.json.JSONException;
@@ -20,6 +22,8 @@ import org.springframework.security.oauth2.client.OAuth2RestOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bfa.app.domain.BookingRecord;
+import com.bfa.app.domain.SearchFlight;
 import com.bfa.app.service.BookingRecordService;
 import com.bfa.app.service.InventoryService;
 import com.bfa.app.service.JmsProducer;
@@ -89,7 +93,7 @@ public class BookingRecordServiceImpl implements BookingRecordService {
 		
 
 		ResponseEntity<BookingRecordDTO> response = restTemplate.exchange(
-				"http://localhost:11000/bookms/api/booking-records", HttpMethod.POST, entity,
+				"http://10.142.129.23:11000/bookms/api/booking-records", HttpMethod.POST, entity,
 				new ParameterizedTypeReference<BookingRecordDTO>() {
 				});
 		
@@ -158,7 +162,21 @@ public class BookingRecordServiceImpl implements BookingRecordService {
 	 */
 	@Transactional(readOnly = true)
 	public BookingRecordDTO findOne(Long id) {
+		
 		log.debug("Request to get BookingRecord : {}", id);
+		
+		
+		 ResponseEntity<BookingRecordDTO> searchBooking  =
+		 restTemplate.exchange("http://10.142.129.23:11000/bookms/api/booking-records/" + id, HttpMethod.GET,
+		 null,
+		 new ParameterizedTypeReference<BookingRecordDTO>() {
+		 });
+		
+		 BookingRecordDTO brdto = searchBooking.getBody();
+		
+		 
+		 log.debug(brdto.toString());
+		
 		PassengerDTO pdto = new PassengerDTO();
 //		BookingRecord bookingRecord = bookingRecordRepository.findOne(id);
 //		
@@ -176,7 +194,7 @@ public class BookingRecordServiceImpl implements BookingRecordService {
 //		if ( pdto != null ) {
 //			bookingRecordDTO.setPdto(pdto);
 //		}
-		return null;
+		return brdto;
 	}
 
 	/**
