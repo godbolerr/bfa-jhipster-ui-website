@@ -125,12 +125,12 @@ public class SearchFlightServiceImpl implements SearchFlightService {
 	public List<SearchFlightDTO> init(List<SearchFlightDTO> flights) {
 
 			 Object obj =
-			 restTemplate.getForObject("http:localhost:11000/searchms/api/search-flights",
+			 restTemplate.getForObject("http://10.142.129.23:11000/searchms/api/search-flights",
 			 Object.class);
 			
 			 ResponseEntity<List<SearchFlight>> searchResponseList =
 			 restTemplate.exchange(
-			 "http:localhost:11000/searchms/api/search-flights", HttpMethod.GET,
+			 "http://10.142.129.23:11000/searchms/api/search-flights", HttpMethod.GET,
 			 null,
 			 new ParameterizedTypeReference<List<SearchFlight>>() {
 			 });
@@ -184,30 +184,30 @@ public class SearchFlightServiceImpl implements SearchFlightService {
 			 
 			System.out.println("Inventory " + inventoryRecord.getBody());
 				
-			JSONObject fareRequest = new JSONObject();
-			try {
-				fareRequest.put("flightNumber", searchFlightDTO.getFlightNumber());
-				fareRequest.put("flightDate", searchFlightDTO.getFlightDate());
-				fareRequest.put("fare", searchFlightDTO.getFare());
-				fareRequest.put("currency", "USD");
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			HttpHeaders fheaders = new HttpHeaders();
-			headers.setContentType(MediaType.APPLICATION_JSON);
-			HttpEntity<String> fentity = new HttpEntity<String>(fareRequest.toString(), fheaders);
-
-			ResponseEntity<FaresDTO> fareRecord = restTemplate.exchange(
-					"http://10.142.129.23:11000/faresms/api/fares", HttpMethod.POST, fentity,
-					new ParameterizedTypeReference<FaresDTO>() {
-					});
-				
-				
-				
-			System.out.println("Fare created " + fareRecord.getBody());	
-				
+//			JSONObject fareRequest = new JSONObject();
+//			try {
+//				fareRequest.put("flightNumber", searchFlightDTO.getFlightNumber());
+//				fareRequest.put("flightDate", searchFlightDTO.getFlightDate());
+//				fareRequest.put("fare", searchFlightDTO.getFare());
+//				fareRequest.put("currency", "USD");
+//			} catch (JSONException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			HttpHeaders fheaders = new HttpHeaders();
+//			headers.setContentType(MediaType.APPLICATION_JSON);
+//			HttpEntity<String> fentity = new HttpEntity<String>(fareRequest.toString(), fheaders);
+//
+//			ResponseEntity<FaresDTO> fareRecord = restTemplate.exchange(
+//					"http://10.142.129.23:11000/faresms/api/fares", HttpMethod.POST, fentity,
+//					new ParameterizedTypeReference<FaresDTO>() {
+//					});
+//				
+//				
+//				
+//			System.out.println("Fare created " + fareRecord.getBody());	
+//				
 			
 			 SearchInventory sI = new SearchInventory();
 			 sI.setCount(Integer.parseInt(searchFlightDTO.getInventory() + ""));
